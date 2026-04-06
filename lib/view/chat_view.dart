@@ -1,245 +1,47 @@
 import 'package:flutter/material.dart';
-//NAO CONCLUIDO
-// Modelo de dados para organizar a estrutura da mensagem
-class ChatMessage {
-  final String text;
-  final String time;
-  final bool isMe;
+import 'package:get_it/get_it.dart';
+import 'package:app_clinica_veterinaria/components/app_drawer.dart';
+import '../controller/chat_controller.dart';
 
-  ChatMessage({
-    required this.text,
-    required this.time,
-    required this.isMe,
-  });
-}
+class ChatView extends StatelessWidget {
+  ChatView({super.key});
 
-class ChatView extends StatefulWidget {
-  const ChatView({super.key});
-
-  @override
-  State<ChatView> createState() => _ChatViewState();
-}
-
-class _ChatViewState extends State<ChatView> {
-  final TextEditingController _messageController = TextEditingController();
-  final ScrollController _scrollController = ScrollController();
-  
+  final controller = GetIt.I.get<ChatController>();
   static const Color primaryTeal = Color(0xFF26C1A1);
-  static const Color darkTeal = Color(0xFF1B8A73);
-
-  // Lista agora inicia vazia ou com uma saudação genérica do sistema
-  final List<ChatMessage> _mensagens = [];
-
-  bool _podeEnviar = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _messageController.addListener(() {
-      if (mounted) {
-        setState(() {
-          _podeEnviar = _messageController.text.trim().isNotEmpty;
-        });
-      }
-    });
-  }
-
-  void _enviarMensagem() {
-    final String texto = _messageController.text.trim();
-    if (texto.isNotEmpty) {
-      final agora = DateTime.now();
-      final String horaFormatada = "${agora.hour}:${agora.minute.toString().padLeft(2, '0')}";
-
-      setState(() {
-        _mensagens.add(
-          ChatMessage(
-            text: texto,
-            time: horaFormatada,
-            isMe: true,
-          ),
-        );
-        _messageController.clear();
-      });
-
-      _scrollParaOFinal();
-    }
-  }
-
-  void _scrollParaOFinal() {
-    Future.delayed(const Duration(milliseconds: 100), () {
-      if (_scrollController.hasClients) {
-        _scrollController.animateTo(
-          _scrollController.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeOut,
-        );
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFF3F4F6),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 1,
-        leading: const BackButton(color: Colors.black87),
-        title: _buildAppBarTitle(),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: _mensagens.isEmpty 
-              ? _buildEmptyState()
-              : ListView.builder(
-                  controller: _scrollController,
-                  padding: const EdgeInsets.all(20),
-                  itemCount: _mensagens.length,
-                  itemBuilder: (context, index) {
-                    final msg = _mensagens[index];
-                    return _buildChatBubble(msg);
-                  },
-                ),
-          ),
-          _buildInputArea(),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildAppBarTitle() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Chat com a Clínica',
-          style: TextStyle(color: Colors.black87, fontSize: 18, fontWeight: FontWeight.bold),
-        ),
-        Row(
-          children: [
-            Container(
-              width: 8,
-              height: 8,
-              decoration: const BoxDecoration(color: Colors.green, shape: BoxShape.circle),
-            ),
-            const SizedBox(width: 5),
-            const Text('Online', style: TextStyle(color: Colors.green, fontSize: 12)),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildEmptyState() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.chat_bubble_outline, size: 80, color: Colors.grey.shade400),
-          const SizedBox(height: 15),
-          Text(
-            'Inicie uma conversa com a clínica',
-            style: TextStyle(color: Colors.grey.shade600, fontSize: 16),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildChatBubble(ChatMessage msg) {
-    return Align(
-      alignment: msg.isMe ? Alignment.centerRight : Alignment.centerLeft,
-      child: Column(
-        crossAxisAlignment: msg.isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-        children: [
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 5),
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.75),
-            decoration: BoxDecoration(
-              color: msg.isMe ? primaryTeal : Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: const Radius.circular(15),
-                topRight: const Radius.circular(15),
-                bottomLeft: Radius.circular(msg.isMe ? 15 : 0),
-                bottomRight: Radius.circular(msg.isMe ? 0 : 15),
-              ),
-              boxShadow: [
-                BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 5, offset: const Offset(0, 2)),
+    return ListenableBuilder(
+      listenable: controller,
+      builder: (context, _) {
+        return Scaffold(
+          backgroundColor: const Color(0xFFF3F4F6),
+          endDrawer: const AppDrawer(), // Menu à direita mantendo o padrão
+          appBar: AppBar(
+            backgroundColor: primaryTeal,
+            elevation: 1,
+            iconTheme: const IconThemeData(color: Colors.white),
+            // NAVEGAÇÃO: Botão voltar para Home
+            leading: BackButton(onPressed: () => controller.voltarParaHome(context)),
+            title: const Row(
+              children: [
+                CircleAvatar(backgroundColor: Colors.white24, child: Icon(Icons.pets, color: Colors.white)),
+                SizedBox(width: 12),
+                Text('Chat Clínica', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
               ],
             ),
-            child: Text(
-              msg.text,
-              style: TextStyle(color: msg.isMe ? Colors.white : Colors.black87, fontSize: 15),
-            ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
-            child: Text(msg.time, style: const TextStyle(fontSize: 11, color: Colors.grey)),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildInputArea() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, -2))],
-      ),
-      child: SafeArea(
-        child: Row(
-          children: [
-            IconButton(
-              icon: const Icon(Icons.add_circle_outline, color: primaryTeal, size: 30),
-              onPressed: () => _mostrarOpcoesAnexo(),
-            ),
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFF3F4F6),
-                  borderRadius: BorderRadius.circular(25),
-                ),
-                child: TextField(
-                  controller: _messageController,
-                  decoration: const InputDecoration(
-                    hintText: 'Escreva sua mensagem...',
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(width: 10),
-            GestureDetector(
-              onTap: _enviarMensagem,
-              child: CircleAvatar(
-                backgroundColor: _podeEnviar ? darkTeal : Colors.grey.shade300,
-                child: const Icon(Icons.send, color: Colors.white, size: 20),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _mostrarOpcoesAnexo() {
-    showModalBottomSheet(
-      context: context,
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
-      builder: (context) {
-        return Padding(
-          padding: const EdgeInsets.all(20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+          body: Column(
             children: [
-              _buildAnexoOpcao(Icons.image, 'Imagem'),
-              _buildAnexoOpcao(Icons.description, 'Documento'),
-              _buildAnexoOpcao(Icons.location_on, 'Localização'),
+              Expanded(
+                child: ListView.builder(
+                  controller: controller.scrollController,
+                  padding: const EdgeInsets.all(20),
+                  itemCount: controller.mensagens.length,
+                  itemBuilder: (context, index) => _buildChatBubble(controller.mensagens[index], context),
+                ),
+              ),
+              _buildInputArea(context),
             ],
           ),
         );
@@ -247,21 +49,76 @@ class _ChatViewState extends State<ChatView> {
     );
   }
 
-  Widget _buildAnexoOpcao(IconData icone, String label) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        CircleAvatar(backgroundColor: primaryTeal.withOpacity(0.1), child: Icon(icone, color: primaryTeal)),
-        const SizedBox(height: 8),
-        Text(label, style: const TextStyle(fontSize: 12)),
-      ],
+  Widget _buildChatBubble(ChatMessage msg, BuildContext context) {
+    return Align(
+      alignment: msg.isMe ? Alignment.centerRight : Alignment.centerLeft,
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
+        constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.8),
+        decoration: BoxDecoration(
+          color: msg.isMe ? primaryTeal : Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: const Radius.circular(20),
+            topRight: const Radius.circular(20),
+            bottomLeft: Radius.circular(msg.isMe ? 20 : 0),
+            bottomRight: Radius.circular(msg.isMe ? 0 : 20),
+          ),
+          boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 5)],
+        ),
+        child: Column(
+          crossAxisAlignment: msg.isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+          children: [
+            // PROPORÇÃO: Texto aumentado para 18 para melhor leitura
+            Text(
+              msg.text,
+              style: TextStyle(color: msg.isMe ? Colors.white : Colors.black87, fontSize: 18),
+            ),
+            const SizedBox(height: 4),
+            Text(msg.time, style: TextStyle(fontSize: 12, color: msg.isMe ? Colors.white70 : Colors.grey)),
+          ],
+        ),
+      ),
     );
   }
 
-  @override
-  void dispose() {
-    _messageController.dispose();
-    _scrollController.dispose();
-    super.dispose();
+  Widget _buildInputArea(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+      decoration: const BoxDecoration(color: Colors.white),
+      child: SafeArea(
+        child: Row(
+          children: [
+            // BOTÃO NO CANTO INFERIOR ESQUERDO: Anexos
+            IconButton(
+              icon: const Icon(Icons.add_a_photo_outlined, color: primaryTeal, size: 28),
+              onPressed: () => controller.abrirOpcoesAnexo(context),
+            ),
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                decoration: BoxDecoration(color: const Color(0xFFF3F4F6), borderRadius: BorderRadius.circular(30)),
+                child: TextField(
+                  controller: controller.messageController,
+                  // PROPORÇÃO: Texto de input também em 18
+                  style: const TextStyle(fontSize: 18),
+                  decoration: const InputDecoration(hintText: 'Mensagem...', border: InputBorder.none),
+                ),
+              ),
+            ),
+            const SizedBox(width: 8),
+            // BOTÃO ENVIAR
+            GestureDetector(
+              onTap: controller.enviarMensagem,
+              child: CircleAvatar(
+                radius: 25,
+                backgroundColor: controller.podeEnviar ? primaryTeal : Colors.grey.shade300,
+                child: const Icon(Icons.send, color: Colors.white, size: 22),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

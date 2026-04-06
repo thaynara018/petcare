@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-// Import do seu controller aqui
 import '../controller/inicio_controller.dart';
 
 class InicioView extends StatefulWidget {

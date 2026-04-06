@@ -1,24 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import '../controller/sobre_controller.dart';
+import 'package:app_clinica_veterinaria/controller/sobre_controller.dart';
 
 class SobreView extends StatelessWidget {
   SobreView({super.key});
 
-  // Localizando o Controller via GetIt
   final controller = GetIt.I.get<SobreController>();
-
   static const Color primaryTeal = Color(0xFF26C1A1);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      // APP BAR: Seguindo o padrão verde com ícone branco
       appBar: AppBar(
         backgroundColor: primaryTeal,
         elevation: 0,
         centerTitle: true,
+        iconTheme: const IconThemeData(color: Colors.white),
         leading: BackButton(
           color: Colors.white,
           onPressed: () => controller.voltarParaInicio(context),
@@ -33,11 +31,10 @@ class SobreView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // LOGO DA CLÍNICA
+            // LOGO DA CLÍNICA (Atualizado para usar a imagem)
             _buildSectionLogo(),
             const SizedBox(height: 30),
 
-            // NOSSA HISTÓRIA
             _buildSectionTitle('Nossa História'),
             const SizedBox(height: 10),
             const Text(
@@ -50,14 +47,13 @@ class SobreView extends StatelessWidget {
             const SizedBox(height: 20),
             const Text(
               'O projeto, que começou como um desafio acadêmico, evoluiu para uma plataforma completa que visa '
-              'estreitar o laço entre tutores e clínicas veterinárias, garantindo que nenhum cuidado seja esquecido.',
+              'estreitar o lço entre tutores e clínicas veterinárias, garantindo que nenhum cuidado seja esquecido.',
               textAlign: TextAlign.justify,
               style: TextStyle(fontSize: 16, color: Colors.black87, height: 1.5),
             ),
 
             const SizedBox(height: 40),
 
-            // OBJETIVO
             _buildSectionTitle('Objetivo'),
             const SizedBox(height: 10),
             const Text(
@@ -69,14 +65,13 @@ class SobreView extends StatelessWidget {
 
             const SizedBox(height: 50),
 
-            // DESENVOLVEDORES
             _buildSectionTitle('Desenvolvedores'),
             const SizedBox(height: 30),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _buildDevAvatar('Pedro A. Villela', 'assets/pedro.png'), // Campo para foto do Pedro
-                _buildDevAvatar('Thaynara F. Coelho', 'assets/thaynara.png'), // Campo para foto da Thaynara
+                _buildDevAvatar('Pedro A. Villela', 'assets/pedro.png'),
+                _buildDevAvatar('Thaynara F. Coelho', 'assets/thaynara.png'),
               ],
             ),
             const SizedBox(height: 40),
@@ -91,21 +86,26 @@ class SobreView extends StatelessWidget {
     );
   }
 
-  // Widget: Logo estilizada
+  // --- WIDGET ATUALIZADO ---
   Widget _buildSectionLogo() {
     return Center(
+      // 1. O ClipRRect é quem faz o corte das bordas
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
-        child: Container(
-          color: primaryTeal.withOpacity(0.1),
-          padding: const EdgeInsets.all(20),
-          child: const Icon(Icons.pets, color: primaryTeal, size: 60),
+        borderRadius: BorderRadius.circular(35), // Quanto maior o número, mais redondo
+        child: Image.asset(
+          'assets/logo_verde.png',
+          height: 140,
+          fit: BoxFit.contain,
+          errorBuilder: (context, error, stackTrace) => const Icon(
+            Icons.pets, 
+            color: primaryTeal, 
+            size: 80
+          ),
         ),
       ),
     );
   }
 
-  // Widget: Título de Seção
   Widget _buildSectionTitle(String title) {
     return Text(
       title,
@@ -117,7 +117,6 @@ class SobreView extends StatelessWidget {
     );
   }
 
-  // Widget: Avatar dos Desenvolvedores
   Widget _buildDevAvatar(String nome, String path) {
     return Column(
       children: [
@@ -125,15 +124,21 @@ class SobreView extends StatelessWidget {
           width: 100,
           height: 100,
           decoration: BoxDecoration(
-            color: Colors.grey.shade200,
+            color: Colors.grey.shade100,
             shape: BoxShape.circle,
             border: Border.all(color: primaryTeal, width: 2),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.05),
+                blurRadius: 10,
+                offset: const Offset(0, 5),
+              )
+            ],
           ),
           child: ClipOval(
             child: Image.asset(
               path,
               fit: BoxFit.cover,
-              // Caso a imagem não exista, mostra um ícone padrão
               errorBuilder: (context, error, stackTrace) => const Icon(
                 Icons.person,
                 size: 50,
@@ -142,7 +147,7 @@ class SobreView extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 12),
         Text(
           nome,
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
