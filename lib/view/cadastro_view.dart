@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; // Necessário para FilteringTextInputFormatter
+import 'package:flutter/services.dart'; //Para FilteringTextInputFormatter
 import 'package:get_it/get_it.dart';
 import '../controller/cadastro_controller.dart';
 
@@ -11,7 +11,8 @@ class CadastroView extends StatefulWidget {
 }
 
 class _CadastroViewState extends State<CadastroView> {
-  // Localizando o Controller via GetIt
+
+  //Localiza o controller via GetIt 
   final controller = GetIt.I.get<CadastroController>();
 
   final txtNome = TextEditingController();
@@ -27,18 +28,18 @@ class _CadastroViewState extends State<CadastroView> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: primaryTeal, // AppBar Verde
+        backgroundColor: primaryTeal,
         elevation: 0,
         leading: BackButton(
-          color: Colors.white, // Ícone Branco
-          onPressed: () => controller.voltarParaInicio(context), // Navegação: Voltar para Início
+          color: Colors.white,
+          onPressed: () => controller.voltarParaInicio(context), //NAVEGAÇÃO
         ),
       ),
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 30),
           child: Form(
-            key: controller.formKey, // Vinculando a chave de validação
+            key: controller.formKey, //Vinculando a chave de validação
             child: Column(
               children: [
                 const SizedBox(height: 20),
@@ -57,7 +58,7 @@ class _CadastroViewState extends State<CadastroView> {
                 const Text('Junte-se ao PetCare', style: TextStyle(fontSize: 16, color: Colors.grey)),
                 const SizedBox(height: 35),
 
-                // CAMPO NOME
+                //CAMPO NOME
                 _buildFieldLabel('Nome Completo'),
                 _buildTextFormField(
                   controller: txtNome, 
@@ -66,7 +67,7 @@ class _CadastroViewState extends State<CadastroView> {
                 ),
                 const SizedBox(height: 15),
 
-                // CAMPO E-MAIL (Com validação de formato)
+                //CAMPO E-MAIL
                 _buildFieldLabel('E-mail'),
                 _buildTextFormField(
                   controller: txtEmail, 
@@ -81,7 +82,7 @@ class _CadastroViewState extends State<CadastroView> {
                 ),
                 const SizedBox(height: 15),
 
-                // CAMPO TELEFONE (Apenas números)
+                //CAMPO TELEFONE
                 _buildFieldLabel('Telefone'),
                 _buildTextFormField(
                   controller: txtTelefone, 
@@ -91,7 +92,7 @@ class _CadastroViewState extends State<CadastroView> {
                 ),
                 const SizedBox(height: 15),
 
-                // CAMPO SENHA
+                //CAMPO SENHA
                 _buildFieldLabel('Senha'),
                 _buildTextFormField(
                   controller: txtSenha, 
@@ -101,7 +102,7 @@ class _CadastroViewState extends State<CadastroView> {
                 ),
                 const SizedBox(height: 15),
 
-                // CAMPO CONFIRMAR SENHA
+                //CAMPO CONFIRMAR SENHA
                 _buildFieldLabel('Confirmar Senha'),
                 _buildTextFormField(
                   controller: txtConfirmarSenha, 
@@ -112,7 +113,7 @@ class _CadastroViewState extends State<CadastroView> {
 
                 const SizedBox(height: 30),
 
-                // BOTÃO: CRIAR CONTA (Navegação Home via Controller)
+                //BOTÃO CRIAR CONTA
                 SizedBox(
                   width: double.infinity,
                   height: 55,
@@ -131,7 +132,7 @@ class _CadastroViewState extends State<CadastroView> {
 
                 const SizedBox(height: 25),
 
-                // RODAPÉ: JÁ TEM CONTA (Navegação Login via Controller)
+                //RODAPÉ
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -154,7 +155,7 @@ class _CadastroViewState extends State<CadastroView> {
     );
   }
 
-  // Helper: Etiquetas
+  //HELPER: Etiquetas
   Widget _buildFieldLabel(String label) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
@@ -165,7 +166,7 @@ class _CadastroViewState extends State<CadastroView> {
     );
   }
 
-  // Helper: Campos de Texto Otimizados
+  //HELPER: Campos de Texto Otimizados
   Widget _buildTextFormField({
     required TextEditingController controller, 
     required String hint, 
@@ -181,19 +182,19 @@ class _CadastroViewState extends State<CadastroView> {
       inputFormatters: isNumeric ? [FilteringTextInputFormatter.digitsOnly] : [],
       decoration: InputDecoration(
         hintText: hint,
-        // AJUSTE: Cor do exemplo definida como cinza
+        //Ajuste de cor do exemplo
         hintStyle: const TextStyle(color: Colors.grey), 
         filled: true,
         fillColor: const Color(0xFFF9FAFB),
         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
         
-        // Bordas quando não há erro
+        //Bordas quando não há erro
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12), 
           borderSide: BorderSide.none,
         ),
 
-        // PADRÃO DE ERRO: Borda vermelha quando a validação falha
+        //Borda vermelha quando a validação falha
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: Colors.redAccent, width: 1),

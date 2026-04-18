@@ -10,11 +10,13 @@ class InicioView extends StatefulWidget {
 }
 
 class _InicioViewState extends State<InicioView> {
-  // PONTO DE GET IT: Localizando o controller registrado globalmente
+
+  //Localiza o controller via GetIt 
   final controller = GetIt.I.get<InicioController>();
 
   static const Color primaryTeal = Color(0xFF26C1A1);
 
+  //LISTA FUNCIONLIDADES
   final List<Map<String, dynamic>> funcionalidades = [
     {'nome': 'Agendamento', 'icon': Icons.calendar_today},
     {'nome': 'Histórico', 'icon': Icons.assignment},
@@ -50,7 +52,7 @@ class _InicioViewState extends State<InicioView> {
           'PetCare',
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
-        // BOTÃO INFORMAÇÕES: Navegação para tela Sobre
+        //BOTÃO INFORMAÇÕES
         actions: [
           IconButton(
             icon: const Icon(Icons.info_outline, color: Colors.white),
@@ -72,7 +74,7 @@ class _InicioViewState extends State<InicioView> {
                 children: [
                   _buildHeroHeader(screenWidth),
                   const SizedBox(height: 50),
-                  // CAMPO SERVIÇOS: Título da seção de utilitários
+                  //CAMPO SERVIÇOS: Título da seção de utilitários
                   Align(
                     alignment: Alignment.centerLeft,
                     child: const Text(
@@ -95,7 +97,7 @@ class _InicioViewState extends State<InicioView> {
     );
   }
 
-  // TITULOS E CABEÇALHO HERO
+  //TITULOS E CABEÇALHO
   Widget _buildHeroHeader(double width) {
     double titleSize = width > 600 ? 48 : 34;
 
@@ -125,16 +127,16 @@ class _InicioViewState extends State<InicioView> {
           ),
         ),
         const SizedBox(height: 40),
-        // BOTÕES DE AÇÃO PRINCIPAL
+        //BOTÕES DE AÇÃO PRINCIPAL
         Wrap(
           spacing: 15,
           runSpacing: 15,
           alignment: WrapAlignment.center,
           children: [
-            // BOTÃO CRIAR CONTA: Direciona para Cadastro
+            //BOTÃO CRIAR CONTA
             _buildActionIcon('Criar conta', primaryTeal, Colors.white, true, 
                 () => controller.navegarParaCadastro(context)),
-            // BOTÃO ENTRAR: Direciona para Login
+            //BOTÃO ENTRAR
             _buildActionIcon('Entrar', Colors.white, primaryTeal, false, 
                 () => controller.navegarParaLogin(context)),
           ],
@@ -143,6 +145,7 @@ class _InicioViewState extends State<InicioView> {
     );
   }
 
+  //PADRONIZAÇÃO BOTÕES
   Widget _buildActionIcon(String label, Color bg, Color text, bool isFull, VoidCallback acao) {
     return SizedBox(
       width: 180,
@@ -161,7 +164,7 @@ class _InicioViewState extends State<InicioView> {
     );
   }
 
-  // GRID DE SERVIÇOS: Itens interativos que levam ao login
+  //GRID DE SERVIÇOS
   Widget _buildResponsiveGrid(double width) {
     int crossAxisCount = 2;
     if (width > 500) crossAxisCount = 3;
@@ -180,7 +183,7 @@ class _InicioViewState extends State<InicioView> {
       itemBuilder: (context, index) {
         final item = funcionalidades[index];
         return InkWell(
-          // NAVEGAÇÃO DOS SERVIÇOS: Todos exigem login nesta fase
+          //NAVEGAÇÃO DOS SERVIÇOS
           onTap: () => controller.navegarParaLogin(context),
           borderRadius: BorderRadius.circular(12),
           child: Card(

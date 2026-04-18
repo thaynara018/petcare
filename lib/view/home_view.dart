@@ -6,6 +6,7 @@ import '../controller/home_controller.dart';
 class HomeView extends StatelessWidget {
   HomeView({super.key});
 
+  //Localiza o controller via GetIt 
   final controller = GetIt.I.get<HomeController>();
   static const Color primaryTeal = Color(0xFF26C1A1);
 
@@ -33,9 +34,9 @@ class HomeView extends StatelessWidget {
           ),
         ],
       ),
-      // --- SCROLL VERTICAL ATIVADO ---
+      //SCROLL VERTICAL
       body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(), // Efeito de "elástico" ao rolar
+        physics: const BouncingScrollPhysics(), //Efeito de "elástico" ao rolar
         padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,7 +47,7 @@ class HomeView extends StatelessWidget {
             ),
             const SizedBox(height: 25),
 
-            // --- SCROLL HORIZONTAL ATIVADO ---
+            //SCROLL HORIZONTAL
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(),
@@ -131,19 +132,19 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  // --- COMPONENTES AUXILIARES ---
+  //COMPONENTES AUXILIARES
 
   Widget _buildStatCard(BuildContext context, IconData icon, String label, String rota) {
     return GestureDetector(
       onTap: () => controller.navegar(context, rota),
       child: Container(
-        width: 150, // Aumentado levemente para destacar o scroll
+        width: 150, //Aumentado levemente para destacar o scroll
         margin: const EdgeInsets.only(right: 15),
         padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(
           color: Colors.white, 
           borderRadius: BorderRadius.circular(15),
-          boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.02), blurRadius: 10)],
+          boxShadow: [BoxShadow(color: Colors.black, blurRadius: 10)],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -161,6 +162,7 @@ class HomeView extends StatelessWidget {
     );
   }
 
+  //CARD DE COMPROMISSOS
   Widget _buildAppointmentItem(String titulo, String subtitulo, Color color) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
@@ -169,7 +171,7 @@ class HomeView extends StatelessWidget {
       child: Row(
         children: [
           CircleAvatar(
-            backgroundColor: color.withOpacity(0.1),
+            backgroundColor: color,
             child: Icon(Icons.event, color: color, size: 20),
           ),
           const SizedBox(width: 15),
@@ -182,12 +184,12 @@ class HomeView extends StatelessWidget {
               ],
             ),
           ),
-          //const Icon(Icons.chevron_right, color: Colors.grey),
         ],
       ),
     );
   }
 
+//BOTÕES DE AÇÃO RAPIDA
   Widget _buildQuickAction(IconData icon, String label, VoidCallback acao) {
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
@@ -206,10 +208,3 @@ class HomeView extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-

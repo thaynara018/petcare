@@ -6,7 +6,7 @@ class NotificacaoItem {
   final String data;
   final IconData icone;
   final Color corIcone;
-  bool isLida; // Define se o card ficará opaco ou não
+  bool isLida; //DEFINE SE O CARD FICARÁ OPACO OU NÃO
 
   NotificacaoItem({
     required this.titulo,
@@ -19,7 +19,7 @@ class NotificacaoItem {
 }
 
 class NotificacaoController extends ChangeNotifier {
-  // Lista inicial com os exemplos solicitados
+  //LISTTA INICIAL COM EXEMPLOS
   final List<NotificacaoItem> listaNotificacoes = [
     NotificacaoItem(
       titulo: 'Consulta Agendada',
@@ -37,15 +37,15 @@ class NotificacaoController extends ChangeNotifier {
     ),
   ];
 
-  // Ação para marcar todas como lidas
+  //AÇÃO MARCAR TODAS LIDAS
   void marcarTodasComoLidas() {
     for (var notificacao in listaNotificacoes) {
       notificacao.isLida = true;
     }
-    notifyListeners(); // Atualiza a interface
+    notifyListeners(); //ATUALIZA
   }
 
-  // NAVEGAÇÃO: Volta para a Home
+  //NAVEGAÇÃO
   void voltarParaHome(BuildContext context) {
     Navigator.pushNamed(context, 'home');
   }

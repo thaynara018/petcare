@@ -6,6 +6,7 @@ import '../controller/historico_controller.dart';
 class HistoricoView extends StatelessWidget {
   HistoricoView({super.key});
 
+  //Localiza o controller via GetIt 
   final controller = GetIt.I.get<HistoricoController>();
   static const Color primaryTeal = Color(0xFF26C1A1);
 
@@ -16,7 +17,7 @@ class HistoricoView extends StatelessWidget {
       builder: (context, _) {
         return Scaffold(
           backgroundColor: const Color(0xFFF3F4F6),
-          endDrawer: const AppDrawer(), // Menu à direita
+          endDrawer: const AppDrawer(), //MENU À DIREITA
           appBar: AppBar(
             backgroundColor: primaryTeal,
             elevation: 0,
@@ -32,13 +33,13 @@ class HistoricoView extends StatelessWidget {
           ),
           body: Column(
             children: [
-              // CABEÇALHO: Seleção de Pet
+              //CABEÇALHO: Seleção de Pet
               _buildPetSelector(),
               
-              // SELETOR DE CATEGORIAS (Abas customizadas)
+              //SELETOR DE CATEGORIAS
               _buildCategoryTabs(),
 
-              // LISTA DE HISTÓRICO (Scrollable)
+              //LISTA DE HISTÓRICO
               Expanded(
                 child: _buildHistoryList(),
               ),
@@ -49,8 +50,9 @@ class HistoricoView extends StatelessWidget {
     );
   }
 
-  // --- WIDGETS DE INTERFACE ---
+  //WIDGETS DE INTERFACE
 
+  //SELECIONA PET
   Widget _buildPetSelector() {
     return Container(
       width: double.infinity,
@@ -63,7 +65,7 @@ class HistoricoView extends StatelessWidget {
           DropdownButton<String>(
             value: controller.petSelecionado,
             isExpanded: true,
-            underline: Container(height: 1, color: primaryTeal.withOpacity(0.3)),
+            underline: Container(height: 1, color: primaryTeal),
             items: controller.listaPets.map((String value) {
               return DropdownMenuItem<String>(value: value, child: Text(value));
             }).toList(),
@@ -74,6 +76,7 @@ class HistoricoView extends StatelessWidget {
     );
   }
 
+  //SELECIONA CATEGORIA
   Widget _buildCategoryTabs() {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 15),
@@ -97,7 +100,7 @@ class HistoricoView extends StatelessWidget {
         decoration: BoxDecoration(
           color: isActive ? primaryTeal : Colors.white,
           borderRadius: BorderRadius.circular(20),
-          boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 5)],
+          boxShadow: [BoxShadow(color: Colors.black, blurRadius: 5)],
         ),
         child: Text(
           label,
@@ -107,13 +110,15 @@ class HistoricoView extends StatelessWidget {
     );
   }
 
+  //LISTA HISTORICO
   Widget _buildHistoryList() {
     List<HistoricoItem> itensExibidos;
     
-    // Define qual lista mostrar baseada na aba ativa
-    if (controller.abaAtiva == 0) itensExibidos = controller.consultas;
-    else if (controller.abaAtiva == 1) itensExibidos = controller.vacinas;
-    else itensExibidos = controller.medicamentos;
+    //Define qual lista mostrar baseada na aba ativa
+    if (controller.abaAtiva == 0) {  itensExibidos = controller.consultas;
+    }else if (controller.abaAtiva == 1) {itensExibidos = controller.vacinas;
+    } else {itensExibidos = controller.medicamentos;
+    }
 
     if (itensExibidos.isEmpty) {
       return const Center(child: Text('Nenhum registro encontrado.'));
@@ -129,6 +134,7 @@ class HistoricoView extends StatelessWidget {
     );
   }
 
+  //CARD HISTÓRICO
   Widget _buildHistoryCard(HistoricoItem item) {
     return Container(
       margin: const EdgeInsets.only(bottom: 15),
@@ -136,19 +142,19 @@ class HistoricoView extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.02), blurRadius: 10)],
+        boxShadow: [BoxShadow(color: Colors.black, blurRadius: 10)],
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // ÍCONE LATERAL COM CONTAINER CLARO (Conforme a imagem)
+          //ÍCONE LATERAL COM CONTAINER CLARO
           Container(
             padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(color: primaryTeal.withOpacity(0.1), borderRadius: BorderRadius.circular(10)),
+            decoration: BoxDecoration(color: primaryTeal, borderRadius: BorderRadius.circular(10)),
             child: Icon(item.icone, color: primaryTeal),
           ),
           const SizedBox(width: 15),
-          // CONTEÚDO
+          //CONTEÚDO
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -160,12 +166,12 @@ class HistoricoView extends StatelessWidget {
               ],
             ),
           ),
-          // BOTÃO DOWNLOAD (Se disponível)
+          //BOTÃO DOWNLOAD
           if (item.temDownload)
             IconButton(
               icon: const Icon(Icons.file_download_outlined, color: primaryTeal),
               onPressed: () {
-                // Futura implementação de download de PDF/Imagem
+                //Futura implementação de download de PDF/Imagem
               },
             ),
         ],

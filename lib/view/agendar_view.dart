@@ -6,7 +6,7 @@ import '../controller/agendar_controller.dart';
 class AgendarView extends StatelessWidget {
   AgendarView({super.key});
 
-  // Localiza o controller via GetIt
+  //Localiza o controller via GetIt 
   final controller = GetIt.I.get<AgendarController>();
   static const Color primaryTeal = Color(0xFF26C1A1);
 
@@ -17,8 +17,7 @@ class AgendarView extends StatelessWidget {
       builder: (context, _) {
         return Scaffold(
           backgroundColor: const Color(0xFFF3F4F6),
-          // MENU À DIREITA: endDrawer para manter o padrão das outras telas
-          endDrawer: const AppDrawer(),
+          endDrawer: const AppDrawer(), //MENU À DIREITA
           appBar: AppBar(
             backgroundColor: primaryTeal,
             elevation: 0,
@@ -39,7 +38,7 @@ class AgendarView extends StatelessWidget {
               key: controller.formKey,
               child: Column(
                 children: [
-                  // CARD: SELEÇÃO DE DATA
+                  //CARD SELEÇÃO DE DATA
                   _buildCard(
                     title: 'Selecione a Data',
                     icon: Icons.calendar_today,
@@ -53,7 +52,7 @@ class AgendarView extends StatelessWidget {
 
                   const SizedBox(height: 20),
 
-                  // CARD: DETALHES DA CONSULTA
+                  //CARD DETALHES DA CONSULTA
                   _buildCard(
                     title: 'Detalhes da Consulta',
                     icon: Icons.edit_calendar,
@@ -65,7 +64,7 @@ class AgendarView extends StatelessWidget {
                         
                         const SizedBox(height: 10),
                         
-                        // CAMPO OBSERVAÇÕES (OBRIGATÓRIO)
+                        //CAMPO OBSERVAÇÕES (OBRIGATÓRIO)
                         TextFormField(
                           controller: controller.obsCtrl,
                           maxLines: 3,
@@ -84,12 +83,12 @@ class AgendarView extends StatelessWidget {
 
                   const SizedBox(height: 20),
 
-                  // CARD: RESUMO DO AGENDAMENTO
+                  //CARD RESUMO DO AGENDAMENTO
                   _buildSummaryCard(),
 
                   const SizedBox(height: 25),
 
-                  // BOTÃO CONFIRMAR
+                  //BOTÃO CONFIRMAR
                   SizedBox(
                     width: double.infinity,
                     height: 55,
@@ -115,15 +114,16 @@ class AgendarView extends StatelessWidget {
     );
   }
 
-  // --- AUXILIARES DE INTERFACE (WIDGETS REUTILIZÁVEIS) ---
+  //AUXILIARES DE INTERFACE REUTILIZÁVEIS
 
+  //CONTAINER MODULAR
   Widget _buildCard({required String title, required IconData icon, required Widget child}) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 10)],
+        boxShadow: [BoxShadow(color: Colors.black, blurRadius: 10)],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,11 +142,11 @@ class AgendarView extends StatelessWidget {
     );
   }
 
+  //PADRONIZA CAIXA DE SELEÇÃO
   Widget _buildDropdown(String label, List<String> items, String? value, Function(String?) onChanged) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15),
       child: DropdownButtonFormField<String>(
-        value: value,
         hint: Text(label, style: const TextStyle(fontSize: 14, color: Colors.grey)),
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(horizontal: 12),
@@ -158,14 +158,15 @@ class AgendarView extends StatelessWidget {
     );
   }
 
+  //FEEDBACK DE ESTADO
   Widget _buildSummaryCard() {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: primaryTeal.withOpacity(0.05),
+        color: primaryTeal,
         borderRadius: BorderRadius.circular(15),
-        border: Border.all(color: primaryTeal.withOpacity(0.2)),
+        border: Border.all(color: primaryTeal),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -181,6 +182,7 @@ class AgendarView extends StatelessWidget {
     );
   }
 
+  //PADRONIZA EXIBIÇÃO CHAVE-VALOR
   Widget _rowSummary(String label, String value) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 6),
@@ -193,5 +195,4 @@ class AgendarView extends StatelessWidget {
     );
   }
 }
-
 

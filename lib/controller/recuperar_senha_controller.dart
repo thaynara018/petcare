@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 
 class RecuperarSenhaController extends ChangeNotifier {
-  // Chave para validar o TextFormField
+
+  //CHAVE VALIDAÇÃO FORMULÁRIO
   final formKey = GlobalKey<FormState>();
 
-  // Lógica de Recuperação
+  //LÓGICA DE RECUPERAÇÃO
   void solicitarRecuperacao(BuildContext context) {
     if (formKey.currentState!.validate()) {
-      // Se o e-mail for válido, exibe o Pop-up de sucesso
+      //SE VÁLIDO
       _exibirPopupSucesso(context);
     }
   }
 
-  // Pop-up de Sucesso (Dialog)
+  //POP-UP FEEDBACK DE SUCESSO
   void _exibirPopupSucesso(BuildContext context) {
     showDialog(
       context: context,
@@ -26,8 +27,7 @@ class RecuperarSenhaController extends ChangeNotifier {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.pop(context); // Fecha o Pop-up
-                irParaLogin(context);   // Navega para o Login
+                Navigator.pop(context); //NAVEGAÇÃO
               },
               child: const Text('OK', style: TextStyle(color: Color(0xFF26C1A1))),
             ),
@@ -37,12 +37,12 @@ class RecuperarSenhaController extends ChangeNotifier {
     );
   }
 
-  // NAVEGAÇÃO: Voltar para Início (usado no botão back da AppBar)
+  //NAVEGAÇÃO
   void irParaInicio(BuildContext context) {
     Navigator.pushNamed(context, 'inicio');
   }
 
-  // NAVEGAÇÃO: Voltar para o Login
+  //NAVEGAÇÃO
   void irParaLogin(BuildContext context) {
     Navigator.pushNamed(context, 'login');
   }

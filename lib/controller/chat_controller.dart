@@ -38,7 +38,7 @@ class ChatController extends ChangeNotifier {
     }
   }
 
-  // MÉTODO PARA ANEXOS: Centraliza as opções de mídia
+  //MÉTODOS PARA ANEXOS
   void abrirOpcoesAnexo(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -57,13 +57,14 @@ class ChatController extends ChangeNotifier {
     );
   }
 
+  //ITEM ANEXO
   Widget _itemAnexo(BuildContext context, IconData icon, String label, Color color) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         CircleAvatar(
           radius: 30,
-          backgroundColor: color.withOpacity(0.1),
+          backgroundColor: color,
           child: Icon(icon, color: color, size: 30),
         ),
         const SizedBox(height: 8),
@@ -72,6 +73,7 @@ class ChatController extends ChangeNotifier {
     );
   }
 
+  //SCROOL PARA O FINAL
   void _scrollParaOFinal() {
     Future.delayed(const Duration(milliseconds: 100), () {
       if (scrollController.hasClients) {

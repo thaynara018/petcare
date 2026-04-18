@@ -6,7 +6,7 @@ class Pet {
 }
 
 class MyPetsController extends ChangeNotifier {
-  // Inicializando a lista com os exemplos 
+  //INICIALIZAÇÃO COM EXEMPLOS
   final List<Pet> meusPets = [
     Pet(nome: 'Rex', especie: 'Cachorro', raca: 'Golden Retriever', idade: '5'),
   ];
@@ -44,11 +44,12 @@ class MyPetsController extends ChangeNotifier {
   }
 
   void voltarParaHome(BuildContext context) {
+    //NAVEGAÇÃO
     Navigator.pushNamed(context, 'home');
   }
 
   void irParaHistorico(BuildContext context) {
-  // NAVEGAÇÃO: Direciona para a tela de histórico clínico
+  //NAVEGAÇÃO
   Navigator.pushNamed(context, 'historico');
   }
 }

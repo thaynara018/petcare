@@ -6,6 +6,7 @@ import '../controller/chat_controller.dart';
 class ChatView extends StatelessWidget {
   ChatView({super.key});
 
+  //Localiza o controller via GetIt 
   final controller = GetIt.I.get<ChatController>();
   static const Color primaryTeal = Color(0xFF26C1A1);
 
@@ -16,12 +17,12 @@ class ChatView extends StatelessWidget {
       builder: (context, _) {
         return Scaffold(
           backgroundColor: const Color(0xFFF3F4F6),
-          endDrawer: const AppDrawer(), // Menu à direita mantendo o padrão
+          endDrawer: const AppDrawer(), //MENU À DIREITA
           appBar: AppBar(
             backgroundColor: primaryTeal,
             elevation: 1,
             iconTheme: const IconThemeData(color: Colors.white),
-            // NAVEGAÇÃO: Botão voltar para Home
+            //NAVEGAÇÃO
             leading: BackButton(onPressed: () => controller.voltarParaHome(context)),
             title: const Row(
               children: [
@@ -49,6 +50,7 @@ class ChatView extends StatelessWidget {
     );
   }
 
+  //BALÕES DO CHAT
   Widget _buildChatBubble(ChatMessage msg, BuildContext context) {
     return Align(
       alignment: msg.isMe ? Alignment.centerRight : Alignment.centerLeft,
@@ -64,12 +66,12 @@ class ChatView extends StatelessWidget {
             bottomLeft: Radius.circular(msg.isMe ? 20 : 0),
             bottomRight: Radius.circular(msg.isMe ? 0 : 20),
           ),
-          boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 5)],
+          boxShadow: [BoxShadow(color: Colors.black, blurRadius: 5)],
         ),
         child: Column(
           crossAxisAlignment: msg.isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: [
-            // PROPORÇÃO: Texto aumentado para 18 para melhor leitura
+            //PROPORÇÃO DE TEXTO
             Text(
               msg.text,
               style: TextStyle(color: msg.isMe ? Colors.white : Colors.black87, fontSize: 18),
@@ -89,7 +91,7 @@ class ChatView extends StatelessWidget {
       child: SafeArea(
         child: Row(
           children: [
-            // BOTÃO NO CANTO INFERIOR ESQUERDO: Anexos
+            //BOTÃO ANEXOS
             IconButton(
               icon: const Icon(Icons.add_a_photo_outlined, color: primaryTeal, size: 28),
               onPressed: () => controller.abrirOpcoesAnexo(context),
@@ -100,14 +102,14 @@ class ChatView extends StatelessWidget {
                 decoration: BoxDecoration(color: const Color(0xFFF3F4F6), borderRadius: BorderRadius.circular(30)),
                 child: TextField(
                   controller: controller.messageController,
-                  // PROPORÇÃO: Texto de input também em 18
+                  //PROPORÇÃO TEXTO
                   style: const TextStyle(fontSize: 18),
                   decoration: const InputDecoration(hintText: 'Mensagem...', border: InputBorder.none),
                 ),
               ),
             ),
             const SizedBox(width: 8),
-            // BOTÃO ENVIAR
+            //BOTÃO ENVIAR
             GestureDetector(
               onTap: controller.enviarMensagem,
               child: CircleAvatar(

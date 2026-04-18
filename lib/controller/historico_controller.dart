@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-// Modelo para os itens do histórico
+//MODELO PARA ITENS DO HISTORICO
 class HistoricoItem {
   final String titulo;
   final String data;
@@ -21,13 +21,13 @@ class HistoricoItem {
 
 class HistoricoController extends ChangeNotifier {
 
-  // Estado: Pet e Aba selecionada
+  //ESTADO Pet e Aba selecionada EXEMPLO
   String petSelecionado = 'Rex';
-  int abaAtiva = 0; // 0: Consultas, 1: Vacinas, 2: Medicamentos
+  int abaAtiva = 0; //0: Consultas, 1: Vacinas, 2: Medicamentos
 
   final List<String> listaPets = ['Rex'];
 
-  // --- DADOS DEMONSTRATIVOS ---
+  //DADOS DEMONSTRATIVOS
   
   final List<HistoricoItem> consultas = [
     HistoricoItem(
@@ -46,7 +46,7 @@ class HistoricoController extends ChangeNotifier {
       responsavel: 'Dra. Ana Santos',
       descricao: 'Reforço anual aplicado. Próxima dose recomendada em 15/09/2026.',
       icone: Icons.vaccines_outlined,
-      temDownload: true, // Certificado de vacinação
+      temDownload: true, //Certificado de vacinação
     ),
   ];
 
@@ -57,7 +57,7 @@ class HistoricoController extends ChangeNotifier {
       responsavel: 'Farmácia Pet',
       descricao: 'Administrado via oral. Proteção válida por 3 meses.',
       icone: Icons.medication_outlined,
-      temDownload: true, // Receita digital
+      temDownload: true, //Receita digital
     ),
   ];
 

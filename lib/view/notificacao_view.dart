@@ -6,7 +6,7 @@ import '../controller/notificacao_controller.dart';
 class NotificacaoView extends StatelessWidget {
   NotificacaoView({super.key});
 
-  // Localiza o controller via GetIt
+  //Localiza o controller via GetIt
   final controller = GetIt.I.get<NotificacaoController>();
   static const Color primaryTeal = Color(0xFF26C1A1);
 
@@ -17,13 +17,12 @@ class NotificacaoView extends StatelessWidget {
       builder: (context, _) {
         return Scaffold(
           backgroundColor: const Color(0xFFF3F4F6),
-          // MENU À DIREITA: endDrawer garante que o ícone do menu apareça na direita
-          endDrawer: const AppDrawer(),
+          endDrawer: const AppDrawer(), //MENU À DIREITA
           appBar: AppBar(
             backgroundColor: primaryTeal,
             elevation: 0,
             iconTheme: const IconThemeData(color: Colors.white),
-            // NAVEGAÇÃO: Botão voltar padrão para a Home
+            //NAVEGAÇÃO
             leading: BackButton(
               color: Colors.white,
               onPressed: () => controller.voltarParaHome(context),
@@ -32,16 +31,16 @@ class NotificacaoView extends StatelessWidget {
               'Notificações',
               style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
-            // Actions vazio para o ícone do endDrawer aparecer sozinho
+            //Actions vazio para o ícone do endDrawer aparecer sozinho
             actions: const [],
           ),
           
           body: Column(
             children: [
-              // NOVO LUGAR DO BOTÃO: Cabeçalho de ações da lista
+              //LUGAR DO BOTÃO CABEÇALHOS DE AÇÕES DA LISTA
               _buildHeaderActions(),
 
-              // LISTA DE NOTIFICAÇÕES COM SCROLL
+              //LISTA DE NOTIFICAÇÕES
               Expanded(
                 child: controller.listaNotificacoes.isEmpty
                     ? _buildEmptyState()
@@ -63,7 +62,7 @@ class NotificacaoView extends StatelessWidget {
 
   // --- COMPONENTES DE INTERFACE ---
 
-  // Widget que contém o contador e o botão de marcar como lidas
+  //CONTADOR E MARCADOR DE LEITURA
   Widget _buildHeaderActions() {
     return Padding(
       padding: const EdgeInsets.fromLTRB(25, 20, 25, 10),
@@ -74,7 +73,7 @@ class NotificacaoView extends StatelessWidget {
             '${controller.listaNotificacoes.length} notificações',
             style: const TextStyle(color: Colors.grey, fontWeight: FontWeight.w500),
           ),
-          // Botão movido da AppBar para cá
+          //BOTÃO MARCAR LIDAS
           GestureDetector(
             onTap: () => controller.marcarTodasComoLidas(),
             child: const Text(
@@ -99,7 +98,7 @@ class NotificacaoView extends StatelessWidget {
 
   Widget _buildNotificationCard(NotificacaoItem item) {
     return AnimatedOpacity(
-      // Se lida, fica com 50% de opacidade (0.5)
+      //OPACIDADE SE LIDA
       opacity: item.isLida ? 0.5 : 1.0,
       duration: const Duration(milliseconds: 300),
       child: Container(
@@ -109,7 +108,7 @@ class NotificacaoView extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
-            BoxShadow(color: Colors.black.withOpacity(0.02), blurRadius: 10)
+            BoxShadow(color: Colors.black, blurRadius: 10)
           ],
         ),
         child: Row(
@@ -118,7 +117,7 @@ class NotificacaoView extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: item.corIcone.withOpacity(0.1),
+                color: item.corIcone,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Icon(item.icone, color: item.corIcone, size: 24),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CadastroController extends ChangeNotifier {
-  // Chave para validar o formulário como um todo
+  
+  //CHAVE VALIDAÇÃO FORMULÁRIO
   final formKey = GlobalKey<FormState>();
 
   // Regra de Negócio: Validar e Navegar para Home

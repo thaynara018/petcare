@@ -10,7 +10,8 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  // Instância do Controller via GetIt
+
+  //Localiza o controller via GetIt 
   final controller = GetIt.I.get<LoginController>();
 
   final txtEmail = TextEditingController();
@@ -21,13 +22,12 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // AppBar Verde com botão de voltar Branco
       appBar: AppBar(
         backgroundColor: primaryTeal,
         elevation: 0,
         leading: BackButton(
           color: Colors.white,
-          // Ponto de Navegação: Voltar para tela de Início
+          //NAVEGAÇÃO
           onPressed: () => controller.voltarParaInicio(context),
         ),
       ),
@@ -36,12 +36,12 @@ class _LoginViewState extends State<LoginView> {
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 30),
           child: Form(
-            // Vincula a chave do controller ao formulário
+            //Vincula a chave do controller ao formulário
             key: controller.formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Logo da Clínica
+                //LOGO CLÍNICA
                 ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: Image.asset(
@@ -53,7 +53,7 @@ class _LoginViewState extends State<LoginView> {
                 ),
                 const SizedBox(height: 15),
                 
-                // Títulos da Tela
+                //TÍTULO TELA
                 const Text(
                   'PetCare',
                   style: TextStyle(
@@ -68,7 +68,7 @@ class _LoginViewState extends State<LoginView> {
                 ),
                 const SizedBox(height: 40),
 
-                // CAMPO E-MAIL: Com validação de formato e preenchimento
+                //CAMPO E-MAIL
                 _buildFieldLabel('E-mail'),
                 const SizedBox(height: 8),
                 _buildTextFormField(
@@ -79,7 +79,7 @@ class _LoginViewState extends State<LoginView> {
                     if (value == null || value.isEmpty) {
                       return 'Por favor, insira seu e-mail';
                     }
-                    // Regex para validar formato de e-mail
+                    //Regex para validar formato de e-mail
                     if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
                       return 'Insira um e-mail válido';
                     }
@@ -89,7 +89,7 @@ class _LoginViewState extends State<LoginView> {
                 
                 const SizedBox(height: 20),
 
-                // CAMPO SENHA: Com validação de preenchimento
+                //CAMPO SENHA
                 _buildFieldLabel('Senha'),
                 const SizedBox(height: 8),
                 _buildTextFormField(
@@ -107,7 +107,7 @@ class _LoginViewState extends State<LoginView> {
 
                 const SizedBox(height: 30),
 
-                // BOTÃO ENTRAR: Dispara a lógica de validação e navegação para HOME
+                //BOTÃO ENTRAR
                 SizedBox(
                   width: double.infinity,
                   height: 55,
@@ -120,7 +120,7 @@ class _LoginViewState extends State<LoginView> {
                       ),
                       elevation: 0,
                     ),
-                    onPressed: () => controller.realizarLogin(context),
+                    onPressed: () => controller.realizarLogin(context), //NAVEGAÇÃO
                     child: const Text(
                       'Entrar',
                       style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -130,10 +130,10 @@ class _LoginViewState extends State<LoginView> {
 
                 const SizedBox(height: 25),
 
-                // Rodapé com links de navegação
+                //RODAPÉ
                 Column(
                   children: [
-                    // NAVEGAÇÃO: Link para Recuperar Senha
+                    //NAVEGAÇÃO
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -151,7 +151,7 @@ class _LoginViewState extends State<LoginView> {
                       ],
                     ),
                     const SizedBox(height: 12),
-                    // NAVEGAÇÃO: Link para Cadastro
+                    //NAVEGAÇÃO
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -178,7 +178,7 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  // Widget auxiliar para as etiquetas (Labels)
+  //Widget auxiliar para as Labels
   Widget _buildFieldLabel(String label) {
     return Align(
       alignment: Alignment.centerLeft,
@@ -197,21 +197,21 @@ class _LoginViewState extends State<LoginView> {
   Widget _buildTextFormField({
     required TextEditingController controller,
     required String hint,
-    required String? Function(String?) validator, // Função de validação
+    required String? Function(String?) validator, //Função de validação
     IconData? icon,
     bool isPassword = false,
   }) {
     return TextFormField(
       controller: controller,
       obscureText: isPassword,
-      validator: validator, // Aplica a regra de validação
+      validator: validator, //Aplica a regra de validação
       decoration: InputDecoration(
         hintText: hint,
         hintStyle: const TextStyle(color: Colors.grey),
         filled: true,
         fillColor: const Color(0xFFF9FAFB),
         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-        // Estilo da borda quando houver erro de validação
+        //BORDA QUANDO HÁ ERRO DE VALIDAÇÃO
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: Colors.redAccent, width: 1),

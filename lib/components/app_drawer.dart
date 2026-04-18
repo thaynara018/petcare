@@ -8,7 +8,8 @@ class AppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Recuperando o controller via GetIt
+    
+    //NAVEGAÇÃO
     final controller = GetIt.I.get<HomeController>();
     const Color primaryTeal = Color(0xFF26C1A1);
 
@@ -39,13 +40,13 @@ class AppDrawer extends StatelessWidget {
     );
   }
 
-  // Widget auxiliar para os itens do menu
+  //Widget auxiliar para os itens do menu
   Widget _buildItem(BuildContext context, IconData icon, String titulo, VoidCallback acao, {Color? color}) {
     return ListTile(
       leading: Icon(icon, color: color ?? Colors.black87),
       title: Text(titulo, style: TextStyle(color: color ?? Colors.black87, fontWeight: FontWeight.w500)),
       onTap: () {
-        Navigator.pop(context); // Fecha o menu lateral
+        Navigator.pop(context); //Fecha o menu lateral
         acao();
       },
     );

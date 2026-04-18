@@ -17,22 +17,15 @@ class MyPetsView extends StatelessWidget {
       builder: (context, _) {
         return Scaffold(
           backgroundColor: const Color(0xFFF3F4F6),
-          
-          // MENU À DIREITA: Usa endDrawer para o ícone de 3 traços aparecer à direita
-          endDrawer: const AppDrawer(), 
-          
+          endDrawer: const AppDrawer(), //MENU À DIREITA
           appBar: AppBar(
             backgroundColor: primaryTeal,
             elevation: 0,
-            // CORREÇÃO: Torna o ícone do menu (hambúrguer) branco
             iconTheme: const IconThemeData(color: Colors.white),
-            
-            // NAVEGAÇÃO: Botão voltar para Home no canto esquerdo
             leading: BackButton(
               color: Colors.white,
-              onPressed: () => controller.voltarParaHome(context),
+              onPressed: () => controller.voltarParaHome(context), //NAVEGAÇÃO
             ),
-            
             title: const Text(
               'Meus Pets',
               style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
@@ -47,7 +40,7 @@ class MyPetsView extends StatelessWidget {
                   itemBuilder: (context, index) => _buildPetCard(context, index),
                 ),
 
-          // BOTÃO ADICIONAR: Posicionado no canto inferior direito
+          //BOTÃO ADICIONAR PET
           floatingActionButton: FloatingActionButton(
             backgroundColor: primaryTeal,
             onPressed: () => _exibirFormulario(context),
@@ -80,7 +73,7 @@ class MyPetsView extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10)],
+        boxShadow: [BoxShadow(color: Colors.black, blurRadius: 10)],
       ),
       child: Column(
         children: [
@@ -113,17 +106,11 @@ class MyPetsView extends StatelessWidget {
                 const SizedBox(height: 5),
                 Text('Idade: ${pet.idade} anos', style: const TextStyle(fontWeight: FontWeight.w600)),
                 const Divider(height: 30),
-                /*SizedBox(
-                  width: double.infinity,
-                  child: OutlinedButton(
-                    onPressed: () {}, // Futura navegação para histórico
-                    child: const Text('Ver Histórico Clínico', style: TextStyle(color: Colors.black87)),
-                  */// ... dentro do método _buildPetCard
 
                 SizedBox(
                   width: double.infinity,
                   child: OutlinedButton(
-                    // AÇÃO DE NAVEGAÇÃO ADICIONADA:
+                    //NAVEGAÇÃO
                     onPressed: () => controller.irParaHistorico(context), 
                     style: OutlinedButton.styleFrom(
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -135,8 +122,6 @@ class MyPetsView extends StatelessWidget {
                     ),
                   ),
                 )
-                //  ),
-                //)
               ],
             ),
           ),
@@ -145,7 +130,7 @@ class MyPetsView extends StatelessWidget {
     );
   }
 
-  // --- FORMULÁRIO COM VALIDAÇÃO ---
+  //FORMULÁRIO COM VALIDAÇÃO
 
   void _exibirFormulario(BuildContext context, {int? index}) {
     if (index != null) {
@@ -166,13 +151,13 @@ class MyPetsView extends StatelessWidget {
         title: Text(index == null ? 'Novo Pet' : 'Editar Pet'),
         content: SingleChildScrollView(
           child: Form(
-            key: controller.formKey, // VINCULA A CHAVE PARA BORDAS VERMELHAS
+            key: controller.formKey, //VINCULA A CHAVE PARA BORDAS VERMELHAS
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // CAMPO DE IMAGEM: Placeholder solicitado
+                //CAMPO DE IMAGEM
                 GestureDetector(
-                  onTap: () {}, // Futura implementação de picker de imagem
+                  onTap: () {}, //Futura implementação de picker de imagem
                   child: Container(
                     height: 80, width: 80,
                     decoration: BoxDecoration(
@@ -210,7 +195,7 @@ class MyPetsView extends StatelessWidget {
     );
   }
 
-  // WIDGET AUXILIAR: Implementa a validação e o estilo de erro (Bordas Vermelhas)
+  //WIDGET AUXILIAR VALIDAÇÃO E ESTILO
   Widget _buildFormField(TextEditingController ctrl, String label, {bool isNumeric = false}) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
@@ -218,7 +203,7 @@ class MyPetsView extends StatelessWidget {
         controller: ctrl,
         keyboardType: isNumeric ? TextInputType.number : TextInputType.text,
         inputFormatters: isNumeric ? [FilteringTextInputFormatter.digitsOnly] : [],
-        // VALIDAÇÃO: Impede salvar campos vazios
+        //VALIDAÇÃO CAMPOS VAZIOS
         validator: (value) => (value == null || value.isEmpty) ? 'Campo obrigatório' : null,
         decoration: InputDecoration(
           labelText: label,
@@ -227,7 +212,7 @@ class MyPetsView extends StatelessWidget {
           fillColor: const Color(0xFFF9FAFB),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide.none),
           
-          // ESTILO DE ERRO
+          //ESTILO DE ERRO
           errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: const BorderSide(color: Colors.redAccent, width: 1)),
           focusedErrorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: const BorderSide(color: Colors.redAccent, width: 2)),
           errorStyle: const TextStyle(color: Colors.redAccent),
@@ -236,6 +221,7 @@ class MyPetsView extends StatelessWidget {
     );
   }
 
+  //CONFIRMAÇÃO EXCLUSÃO DE PET
   void _confirmarExclusao(BuildContext context, int index) {
     showDialog(
       context: context,

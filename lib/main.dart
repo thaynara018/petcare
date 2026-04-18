@@ -73,6 +73,7 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Clinica',
 
+      //ROTAS NAVEGAÇÃO
       initialRoute: 'inicio',
       routes: {
         'inicio': (context) => InicioView(),

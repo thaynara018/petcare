@@ -31,7 +31,7 @@ class SobreView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // LOGO DA CLÍNICA (Atualizado para usar a imagem)
+            // LOGO DA CLÍNICA
             _buildSectionLogo(),
             const SizedBox(height: 30),
 
@@ -86,12 +86,11 @@ class SobreView extends StatelessWidget {
     );
   }
 
-  // --- WIDGET ATUALIZADO ---
+  //LOGO
   Widget _buildSectionLogo() {
     return Center(
-      // 1. O ClipRRect é quem faz o corte das bordas
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(35), // Quanto maior o número, mais redondo
+        borderRadius: BorderRadius.circular(35),
         child: Image.asset(
           'assets/logo_verde.png',
           height: 140,
@@ -106,6 +105,7 @@ class SobreView extends StatelessWidget {
     );
   }
 
+  //PADRONIZA TITULOS
   Widget _buildSectionTitle(String title) {
     return Text(
       title,
@@ -117,6 +117,7 @@ class SobreView extends StatelessWidget {
     );
   }
 
+  //PADRONIZA AVATAR
   Widget _buildDevAvatar(String nome, String path) {
     return Column(
       children: [
@@ -129,7 +130,7 @@ class SobreView extends StatelessWidget {
             border: Border.all(color: primaryTeal, width: 2),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.05),
+                color: Colors.black,
                 blurRadius: 10,
                 offset: const Offset(0, 5),
               )

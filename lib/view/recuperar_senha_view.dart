@@ -11,7 +11,8 @@ class RecuperarSenhaView extends StatefulWidget {
 }
 
 class _RecuperarSenhaViewState extends State<RecuperarSenhaView> {
-  // Localizando o Controller via GetIt
+  
+  //Localiza o controller via GetIt 
   final controller = GetIt.I.get<RecuperarSenhaController>();
   
   final txtEmailRecuperacao = TextEditingController();
@@ -22,18 +23,18 @@ class _RecuperarSenhaViewState extends State<RecuperarSenhaView> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: primaryTeal, // AppBar Verde
+        backgroundColor: primaryTeal,
         elevation: 0,
         leading: BackButton(
-          color: Colors.white, // Ícone Branco
-          onPressed: () => controller.irParaInicio(context), // Navegação Início
+          color: Colors.white,
+          onPressed: () => controller.irParaInicio(context), //NAVEGAÇÃO
         ),
       ),
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 30),
           child: Form(
-            key: controller.formKey, // Chave para validação
+            key: controller.formKey, //Chave para validação
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -56,7 +57,7 @@ class _RecuperarSenhaViewState extends State<RecuperarSenhaView> {
                 ),
                 const SizedBox(height: 40),
 
-                // CAMPO E-MAIL (TextFormField)
+                //CAMPO E-MAIL
                 _buildFieldLabel('E-mail cadastrado'),
                 _buildTextFormField(
                   controller: txtEmailRecuperacao,
@@ -82,7 +83,7 @@ class _RecuperarSenhaViewState extends State<RecuperarSenhaView> {
                 ),
                 const SizedBox(height: 35),
 
-                // BOTÃO: Recuperar Senha
+                //BOTÃO RECUPERAR SENHA
                 SizedBox(
                   width: double.infinity,
                   height: 55,
@@ -99,7 +100,7 @@ class _RecuperarSenhaViewState extends State<RecuperarSenhaView> {
 
                 const SizedBox(height: 25),
 
-                // NAVEGAÇÃO: Voltar para o login
+                //NAVEGAÇÃO
                 GestureDetector(
                   onTap: () => controller.irParaLogin(context),
                   child: const Text(
@@ -126,7 +127,7 @@ class _RecuperarSenhaViewState extends State<RecuperarSenhaView> {
     );
   }
 
-  // HELPER FORM FIELD: Configurado com as bordas de erro
+  // HELPER FORM FIELD
   Widget _buildTextFormField({
     required TextEditingController controller, 
     required String hint,
@@ -142,7 +143,7 @@ class _RecuperarSenhaViewState extends State<RecuperarSenhaView> {
         fillColor: const Color(0xFFF9FAFB),
         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
         
-        // BORDA PADRÃO (Sem erro)
+        //BORDA PADRÃO SEM ERRO
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide.none,
