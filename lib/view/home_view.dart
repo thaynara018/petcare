@@ -144,7 +144,7 @@ class HomeView extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white, 
           borderRadius: BorderRadius.circular(15),
-          boxShadow: [BoxShadow(color: Colors.black, blurRadius: 10)],
+          boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.02), blurRadius: 10)],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -171,7 +171,7 @@ class HomeView extends StatelessWidget {
       child: Row(
         children: [
           CircleAvatar(
-            backgroundColor: color,
+            backgroundColor: color.withOpacity(0.1),
             child: Icon(Icons.event, color: color, size: 20),
           ),
           const SizedBox(width: 15),

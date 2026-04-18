@@ -123,7 +123,7 @@ class AgendarView extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),
-        boxShadow: [BoxShadow(color: Colors.black, blurRadius: 10)],
+        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 10)],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -147,6 +147,7 @@ class AgendarView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15),
       child: DropdownButtonFormField<String>(
+        value: value,
         hint: Text(label, style: const TextStyle(fontSize: 14, color: Colors.grey)),
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(horizontal: 12),
@@ -164,9 +165,9 @@ class AgendarView extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: primaryTeal,
+        color: primaryTeal.withOpacity(0.05),
         borderRadius: BorderRadius.circular(15),
-        border: Border.all(color: primaryTeal),
+        border: Border.all(color: primaryTeal.withOpacity(0.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

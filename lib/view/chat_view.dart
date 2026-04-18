@@ -66,7 +66,7 @@ class ChatView extends StatelessWidget {
             bottomLeft: Radius.circular(msg.isMe ? 20 : 0),
             bottomRight: Radius.circular(msg.isMe ? 0 : 20),
           ),
-          boxShadow: [BoxShadow(color: Colors.black, blurRadius: 5)],
+          boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 5)],
         ),
         child: Column(
           crossAxisAlignment: msg.isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,

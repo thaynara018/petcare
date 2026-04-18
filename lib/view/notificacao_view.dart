@@ -108,7 +108,7 @@ class NotificacaoView extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
-            BoxShadow(color: Colors.black, blurRadius: 10)
+            BoxShadow(color: Colors.black.withOpacity(0.02), blurRadius: 10)
           ],
         ),
         child: Row(
@@ -117,7 +117,7 @@ class NotificacaoView extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: item.corIcone,
+                color: item.corIcone.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Icon(item.icone, color: item.corIcone, size: 24),

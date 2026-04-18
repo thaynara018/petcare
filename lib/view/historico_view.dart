@@ -65,7 +65,7 @@ class HistoricoView extends StatelessWidget {
           DropdownButton<String>(
             value: controller.petSelecionado,
             isExpanded: true,
-            underline: Container(height: 1, color: primaryTeal),
+            underline: Container(height: 1, color: primaryTeal.withOpacity(0.3)),
             items: controller.listaPets.map((String value) {
               return DropdownMenuItem<String>(value: value, child: Text(value));
             }).toList(),
@@ -100,7 +100,7 @@ class HistoricoView extends StatelessWidget {
         decoration: BoxDecoration(
           color: isActive ? primaryTeal : Colors.white,
           borderRadius: BorderRadius.circular(20),
-          boxShadow: [BoxShadow(color: Colors.black, blurRadius: 5)],
+          boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 5)],
         ),
         child: Text(
           label,
@@ -142,7 +142,7 @@ class HistoricoView extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),
-        boxShadow: [BoxShadow(color: Colors.black, blurRadius: 10)],
+        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.02), blurRadius: 10)],
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -150,7 +150,7 @@ class HistoricoView extends StatelessWidget {
           //ÍCONE LATERAL COM CONTAINER CLARO
           Container(
             padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(color: primaryTeal, borderRadius: BorderRadius.circular(10)),
+            decoration: BoxDecoration(color: primaryTeal.withOpacity(0.1), borderRadius: BorderRadius.circular(10)),
             child: Icon(item.icone, color: primaryTeal),
           ),
           const SizedBox(width: 15),

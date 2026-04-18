@@ -64,7 +64,7 @@ class ChatController extends ChangeNotifier {
       children: [
         CircleAvatar(
           radius: 30,
-          backgroundColor: color,
+          backgroundColor: color.withOpacity(0.1),
           child: Icon(icon, color: color, size: 30),
         ),
         const SizedBox(height: 8),
